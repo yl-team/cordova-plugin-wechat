@@ -4,7 +4,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="xu.li.cordova.wechat"
-    version="0.8.2">
+    version="0.9.1">
 
     <name>Wechat</name>
     <description>A cordova plugin, a JS version of Wechat SDK</description>
@@ -42,6 +42,14 @@
             </array>
         </config-file>
 
+        <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+            <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <true/>
+            </dict>
+        </config-file>
+        
+
         <config-file target="*-Info.plist" parent="CFBundleURLTypes">
             <array>
                 <dict>
@@ -60,13 +68,14 @@
         <source-file src="src/ios/CDVWechat.m" />
 
         <!-- Wechat Official -->
-        <header-file src="src/ios/libs/WeChatSDK_1.5/WeChatSDK_1.5/WXApi.h" />
-        <header-file src="src/ios/libs/WeChatSDK_1.5/WeChatSDK_1.5/WXApiObject.h" />
-        <source-file src="src/ios/libs/WeChatSDK_1.5/WeChatSDK_1.5/libWeChatSDK.a" framework="true" />
+        <header-file src="src/ios/libs/WeChatSDK_1.6.1/WXApi.h" />
+        <header-file src="src/ios/libs/WeChatSDK_1.6.1/WXApiObject.h" />
+        <source-file src="src/ios/libs/WeChatSDK_1.6.1/libWeChatSDK.a" framework="true" />
 
         <!-- Other required frameworks -->
         <framework src="libz.dylib" />
         <framework src="libsqlite3.0.dylib" />
+        <framework src="CoreTelephony.framework" />
         <framework src="SystemConfiguration.framework" />
         <framework src="Security.framework" />
         <framework src="libstdc++.6.dylib" />
@@ -84,6 +93,14 @@
                 <param name="android-package" value="xu.li.cordova.wechat.Wechat"/>
             </feature>
             <preference name="WECHATAPPID" value="$WECHATAPPID"/>
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
